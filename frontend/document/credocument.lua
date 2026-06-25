@@ -1300,7 +1300,9 @@ end
 
 function CreDocument:setFontKerning(mode)
     logger.dbg("CreDocument: set font kerning mode", mode)
-    self._document:setIntProperty("font.kerning.mode", mode)
+    local precise = mode == 4
+    self._document:setIntProperty("font.kerning.mode", precise and 3 or mode)
+    self._document:setIntProperty("font.fractional.positioning", precise and 4 or 0)
 end
 
 function CreDocument:setWordSpacing(values)

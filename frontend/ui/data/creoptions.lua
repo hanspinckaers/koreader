@@ -644,10 +644,10 @@ If a font variation is not available, as well as for fractional adjustments, it 
             {   -- ReaderFont
                 name = "font_kerning",
                 name_text = _("Font Kerning"),
-                toggle = {C_("Font kerning", "off"), C_("Font kerning", "fast"), C_("Font kerning", "good"), C_("Font kerning", "best")},
-                values = {0, 1, 2, 3},
+                toggle = {C_("Font kerning", "off"), C_("Font kerning", "fast"), C_("Font kerning", "good"), C_("Font kerning", "best"), C_("Font kerning", "precise")},
+                values = {0, 1, 2, 3, 4},
                 default_value = 3,
-                args = {0, 1, 2, 3},
+                args = {0, 1, 2, 3, 4},
                 event = "SetFontKerning",
                 name_text_hold_callback = optionsutil.showValues,
                 help_text = _([[Font kerning is the process of adjusting the spacing between individual letter forms, to achieve a visually pleasing result.
@@ -656,6 +656,7 @@ If a font variation is not available, as well as for fractional adjustments, it 
 - fast: use FreeType's kerning implementation (no ligatures).
 - good: use HarfBuzz's light kerning implementation (faster than best but no ligatures and limited support for non-western scripts)
 - best: use HarfBuzz's full kerning implementation (slower, but may support ligatures with some fonts; also needed to properly display joined arabic glyphs and some other scripts).
+- precise: use best kerning with 4-phase fractional positioning, no vertical scaling, and light font rasterization.
 
 (Font Hinting may need to be adjusted for the best result with either kerning implementation.)]]),
             },
