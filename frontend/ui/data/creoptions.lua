@@ -655,8 +655,7 @@ If a font variation is not available, as well as for fractional adjustments, it 
 - off: no kerning.
 - fast: use FreeType's kerning implementation (no ligatures).
 - good: use HarfBuzz's light kerning implementation (faster than best but no ligatures and limited support for non-western scripts)
-- best: use HarfBuzz's full kerning implementation (slower, but may support ligatures with some fonts; also needed to properly display joined arabic glyphs and some other scripts).
-- precise: use best kerning with 4-phase fractional positioning, no vertical scaling, and light font rasterization.
+- precise: use best kerning with fractional glyph positioning.
 
 (Font Hinting may need to be adjusted for the best result with either kerning implementation.)]]),
             },
