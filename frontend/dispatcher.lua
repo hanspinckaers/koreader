@@ -260,7 +260,8 @@ local settingsList = {
     font_gamma = {category="string", rolling=true},
     font_base_weight = {category="string", rolling=true},
     font_hinting = {category="string", rolling=true},
-    font_kerning = {category="string", rolling=true, separator=true},
+    font_kerning = {category="string", rolling=true},
+    font_fractional_positioning = {category="string", rolling=true, separator=true},
     ----
     visible_pages = {category="string", rolling=true, separator=true},
     ----
@@ -509,6 +510,7 @@ local dispatcher_menu_order = {
     "font_base_weight",
     "font_hinting",
     "font_kerning",
+    "font_fractional_positioning",
     ----
     "visible_pages",
     ----

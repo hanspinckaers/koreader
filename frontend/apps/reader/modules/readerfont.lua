@@ -172,6 +172,7 @@ function ReaderFont:onReadSettings(config)
     self.ui.document:setFontBaseWeight(self.configurable.font_base_weight)
     self.ui.document:setFontHinting(self.configurable.font_hinting)
     self.ui.document:setFontKerning(self.configurable.font_kerning)
+    self.ui.document:setFontFractionalPositioning(self.configurable.font_fractional_positioning)
     self.ui.document:setWordSpacing(self.configurable.word_spacing)
     self.ui.document:setWordExpansion(self.configurable.word_expansion)
     self.ui.document:setCJKWidthScaling(self.configurable.cjk_width_scaling)
@@ -239,6 +240,14 @@ function ReaderFont:onSetFontKerning(mode)
     self.ui.document:setFontKerning(mode)
     self.ui:handleEvent(Event:new("UpdatePos"))
     Notification:notify(T(_("Font kerning set to: %1"), optionsutil:getOptionText("SetFontKerning", mode)))
+    return true
+end
+
+function ReaderFont:onSetFontFractionalPositioning(granularity)
+    self.configurable.font_fractional_positioning = granularity
+    self.ui.document:setFontFractionalPositioning(granularity)
+    self.ui:handleEvent(Event:new("UpdatePos"))
+    Notification:notify(T(_("Full kerning phases set to: %1"), optionsutil:getOptionText("SetFontFractionalPositioning", granularity)))
     return true
 end
 

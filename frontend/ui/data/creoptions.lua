@@ -659,6 +659,22 @@ If a font variation is not available, as well as for fractional adjustments, it 
 
 (Font Hinting may need to be adjusted for the best result with either kerning implementation.)]]),
             },
+            {   -- ReaderFont
+                name = "font_fractional_positioning",
+                name_text = _("Full Kerning Phases"),
+                toggle = {C_("Font fractional positioning", "off"), "2", "4", "8", "16", "32", "64"},
+                values = {1, 2, 4, 8, 16, 32, 64},
+                default_value = 4,
+                args = {1, 2, 4, 8, 16, 32, 64},
+                event = "SetFontFractionalPositioning",
+                name_text_hold_callback = optionsutil.showValues,
+                help_text = _([[Controls how many fractional pixel phases are used by precise kerning.
+
+- off: use integer glyph mask positions.
+- 2/4/8/16/32/64: use this many glyph mask positions inside each pixel.
+
+Higher values can make spacing smoother, but use more glyph cache and may make glyph weight less even on low-DPI screens. This only affects precise kerning.]]),
+            },
         }
     },
     {
