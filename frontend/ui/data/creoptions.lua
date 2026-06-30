@@ -644,10 +644,10 @@ If a font variation is not available, as well as for fractional adjustments, it 
             {   -- ReaderFont
                 name = "font_kerning",
                 name_text = _("Font Kerning"),
-                toggle = {C_("Font kerning", "off"), C_("Font kerning", "fast"), C_("Font kerning", "good"), C_("Font kerning", "best"), C_("Font kerning", "precise")},
-                values = {0, 1, 2, 3, 4},
+                toggle = {C_("Font kerning", "off"), C_("Font kerning", "fast"), C_("Font kerning", "good"), C_("Font kerning", "best")},
+                values = {0, 1, 2, 3},
                 default_value = 3,
-                args = {0, 1, 2, 3, 4},
+                args = {0, 1, 2, 3},
                 event = "SetFontKerning",
                 name_text_hold_callback = optionsutil.showValues,
                 help_text = _([[Font kerning is the process of adjusting the spacing between individual letter forms, to achieve a visually pleasing result.
@@ -655,25 +655,25 @@ If a font variation is not available, as well as for fractional adjustments, it 
 - off: no kerning.
 - fast: use FreeType's kerning implementation (no ligatures).
 - good: use HarfBuzz's light kerning implementation (faster than best but no ligatures and limited support for non-western scripts)
-- precise: use best kerning with fractional glyph positioning.
+- best: use HarfBuzz's full kerning implementation (with ligatures and support for complex scripts).
 
 (Font Hinting may need to be adjusted for the best result with either kerning implementation.)]]),
             },
             {   -- ReaderFont
                 name = "font_fractional_positioning",
-                name_text = _("Full Kerning Phases"),
+                name_text = _("Kerning Precision"),
                 toggle = {C_("Font fractional positioning", "off"), "2", "4", "8", "16", "32", "64"},
                 values = {1, 2, 4, 8, 16, 32, 64},
-                default_value = 4,
+                default_value = 1,
                 args = {1, 2, 4, 8, 16, 32, 64},
                 event = "SetFontFractionalPositioning",
                 name_text_hold_callback = optionsutil.showValues,
-                help_text = _([[Controls how many fractional pixel phases are used by precise kerning.
+                help_text = _([[Controls how many fractional pixel phases are used by best kerning.
 
-- off: use integer glyph mask positions.
+- off: use the existing integer glyph positions.
 - 2/4/8/16/32/64: use this many glyph mask positions inside each pixel.
 
-Higher values can make spacing smoother, but use more glyph cache and may make glyph weight less even on low-DPI screens. This only affects precise kerning.]]),
+Higher values can make spacing smoother, but use more glyph cache and may make glyph weight less even on low-DPI screens. This only affects best kerning.]]),
             },
         }
     },

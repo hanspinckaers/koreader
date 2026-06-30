@@ -247,7 +247,7 @@ function ReaderFont:onSetFontFractionalPositioning(granularity)
     self.configurable.font_fractional_positioning = granularity
     self.ui.document:setFontFractionalPositioning(granularity)
     self.ui:handleEvent(Event:new("UpdatePos"))
-    Notification:notify(T(_("Full kerning phases set to: %1"), optionsutil:getOptionText("SetFontFractionalPositioning", granularity)))
+    Notification:notify(T(_("Kerning precision set to: %1"), optionsutil:getOptionText("SetFontFractionalPositioning", granularity)))
     return true
 end
 
