@@ -1303,9 +1303,9 @@ function CreDocument:setFontKerning(mode)
     self._document:setIntProperty("font.kerning.mode", mode)
 end
 
-function CreDocument:setFontFractionalPositioning(granularity)
-    logger.dbg("CreDocument: set font fractional positioning granularity", granularity)
-    self._document:setIntProperty("font.fractional.positioning", granularity)
+function CreDocument:setFontFractionalPositioning(strength)
+    logger.dbg("CreDocument: set font fractional positioning strength", strength)
+    self._document:setIntProperty("font.fractional.positioning", strength)
 end
 
 function CreDocument:setWordSpacing(values)

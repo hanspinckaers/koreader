@@ -655,25 +655,32 @@ If a font variation is not available, as well as for fractional adjustments, it 
 - off: no kerning.
 - fast: use FreeType's kerning implementation (no ligatures).
 - good: use HarfBuzz's light kerning implementation (faster than best but no ligatures and limited support for non-western scripts)
-- best: use HarfBuzz's full kerning implementation (with ligatures and support for complex scripts).
+- best: use HarfBuzz's full kerning implementation (with ligatures and support for complex scripts). Its fractional positioning is controlled by Kerning Precision below.
 
 (Font Hinting may need to be adjusted for the best result with either kerning implementation.)]]),
             },
             {   -- ReaderFont
                 name = "font_fractional_positioning",
                 name_text = _("Kerning Precision"),
-                toggle = {C_("Font fractional positioning", "off"), "2", "4", "8", "16", "32", "64"},
-                values = {1, 2, 4, 8, 16, 32, 64},
-                default_value = 1,
-                args = {1, 2, 4, 8, 16, 32, 64},
+                toggle = {
+                    C_("Font fractional positioning", "off"),
+                    C_("Font fractional positioning", "low"),
+                    C_("Font fractional positioning", "medium"),
+                    C_("Font fractional positioning", "high"),
+                },
+                values = {0, 1, 2, 3},
+                default_value = 2,
+                args = {0, 1, 2, 3},
                 event = "SetFontFractionalPositioning",
                 name_text_hold_callback = optionsutil.showValues,
-                help_text = _([[Controls how many fractional pixel phases are used by best kerning.
+                help_text = _([[Controls fractional glyph positioning for best kerning. The required number of pixel phases is selected automatically for the current font size.
 
 - off: use the existing integer glyph positions.
-- 2/4/8/16/32/64: use this many glyph mask positions inside each pixel.
+- low: use a small positioning improvement with minimal additional glyph caching.
+- medium: balance positioning precision and glyph-cache use.
+- high: prioritize positioning precision, using more glyph-cache entries where useful.
 
-Higher values can make spacing smoother, but use more glyph cache and may make glyph weight less even on low-DPI screens. This only affects best kerning.]]),
+This setting only affects best kerning.]]),
             },
         }
     },
