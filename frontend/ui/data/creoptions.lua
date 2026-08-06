@@ -456,6 +456,10 @@ Note that your selected font size is not affected by this setting.]]),
             {   -- ReaderFont
                 name = "word_spacing",
                 name_text = _("Word Spacing"),
+                -- Kept in the configuration model for settings/profile
+                -- compatibility, but exposed by Knuth justification in the
+                -- top menu so all page-level spacing controls live together.
+                show = false,
                 more_options = true,
                 more_options_param = {
                     name = "word_spacing",
