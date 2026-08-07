@@ -8,7 +8,6 @@ describe("Knuth justification plugin", function()
 
     local setting_names = {
         "line_breaking_mode",
-        "word_spacing",
         "justification_word_spacing",
         "justification_letter_spacing",
         "justification_tracking_smoothness",
@@ -33,9 +32,6 @@ describe("Knuth justification plugin", function()
         saved = {}
         document = {
             configurable = {},
-            setWordSpacing = function(_, value)
-                native_properties["word_spacing"] = value
-            end,
             _document = {
                 setIntProperty = function(_, property, value)
                     native_properties[property] = value
@@ -61,7 +57,6 @@ describe("Knuth justification plugin", function()
 
     it("loads existing copt settings before rendering and applies every native property", function()
         saved.copt_line_breaking_mode = 1
-        saved.copt_word_spacing = { 112, 100 }
         saved.copt_justification_word_spacing = { 29, 47 }
         saved.copt_justification_letter_spacing = { 2, 3 }
         saved.copt_justification_tracking_smoothness = 75
@@ -75,7 +70,6 @@ describe("Knuth justification plugin", function()
         plugin:onReadSettings(config)
 
         assert.are.equal(1, native_properties["crengine.style.line.breaking.mode"])
-        assert.are.same({ 112, 100 }, native_properties.word_spacing)
         assert.are.equal(29, native_properties["crengine.style.justify.space.shrink.percent"])
         assert.are.equal(47, native_properties["crengine.style.justify.space.stretch.percent"])
         assert.are.equal(2, native_properties["crengine.style.justify.tracking.shrink.percent"])
@@ -92,7 +86,6 @@ describe("Knuth justification plugin", function()
         assert.are.equal(9, native_properties["crengine.style.justify.emergency.stretch.percent"])
         assert.are.equal(44, native_properties["crengine.style.justify.last.line.min.percent"])
         assert.are.same({ 29, 47 }, document.configurable.justification_word_spacing)
-        assert.are.same({ 112, 100 }, document.configurable.word_spacing)
     end)
 
     it("persists profile events under the compatible copt keys", function()
@@ -150,16 +143,6 @@ describe("Knuth justification plugin", function()
             native_properties["crengine.style.line.breaking.mode"])
     end)
 
-    it("moves configurable natural word spacing into the top plugin", function()
-        local plugin = Plugin:new{ ui = ui }
-        plugin:onReadSettings(config)
-        plugin:onSetKnuthWordSpacing({ 115, 100 })
-
-        assert.are.same({ 115, 100 }, saved.copt_word_spacing)
-        assert.are.same({ 115, 100 }, document.configurable.word_spacing)
-        assert.are.same({ 115, 100 }, native_properties.word_spacing)
-    end)
-
     it("labels the page-level modes Fast, Hybrid and Best", function()
         local plugin = Plugin:new{ ui = ui }
         plugin:onReadSettings(config)
@@ -206,6 +189,7 @@ describe("Knuth justification plugin", function()
         end
         visit(require("ui/data/creoptions"))
 
+        assert.is_true(found.word_spacing)
         for _, name in ipairs(setting_names) do
             assert.is_nil(found[name], name)
         end

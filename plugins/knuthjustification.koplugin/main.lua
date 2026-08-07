@@ -29,28 +29,6 @@ local options = {
         info = _([[Fast chooses each line locally. Hybrid keeps those Fast breaks but optically equalizes visible word gaps and applies bounded microtracking. Best chooses all paragraph breaks together. Selecting a mode also enforces justified body text for the current book.]]),
     },
     {
-        name = "word_spacing",
-        event = "SetKnuthWordSpacing",
-        title = _("Word spacing"),
-        default = G_defaults:readSetting("DCREREADER_CONFIG_WORD_SPACING_MEDIUM"),
-        values = {
-            G_defaults:readSetting("DCREREADER_CONFIG_WORD_SPACING_SMALL"),
-            G_defaults:readSetting("DCREREADER_CONFIG_WORD_SPACING_MEDIUM"),
-            G_defaults:readSetting("DCREREADER_CONFIG_WORD_SPACING_LARGE"),
-        },
-        labels = {
-            C_("Word spacing", "small"),
-            C_("Word spacing", "medium"),
-            C_("Word spacing", "large"),
-        },
-        properties = {},
-        always_enabled = true,
-        left_text = _("Scaling"), left_min = 10, left_max = 500, left_step = 1, left_hold_step = 10,
-        right_text = _("Reduction"), right_min = 25, right_max = 100, right_step = 1, right_hold_step = 10,
-        unit = "%",
-        info = _([[Scale the natural width of every space and choose how far legacy Fast layout may reduce it. Best and Hybrid use Scaling as their natural width; their contraction limit is controlled separately by Word-space limits.]]),
-    },
-    {
         name = "justification_word_spacing",
         event = "SetJustificationWordSpacing",
         title = _("Word-space limits"),
@@ -284,9 +262,7 @@ end
 
 function KnuthJustification:applyOption(option, value)
     if not self.ui.document or not self.ui.document._document then return end
-    if option.name == "word_spacing" then
-        self.ui.document:setWordSpacing(value)
-    elseif #option.properties == 1 then
+    if #option.properties == 1 then
         self.ui.document._document:setIntProperty(option.properties[1], value)
     else
         self.ui.document._document:setIntProperty(option.properties[1], value[1])
@@ -500,10 +476,6 @@ end
 function KnuthJustification:onSetLineBreakingMode(value, quiet)
     self:ensureJustifiedText()
     return self:setValue("line_breaking_mode", value, quiet)
-end
-
-function KnuthJustification:onSetKnuthWordSpacing(value)
-    return self:setValue("word_spacing", value)
 end
 
 function KnuthJustification:onSetJustificationWordSpacing(value)
